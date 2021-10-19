@@ -24,10 +24,10 @@ def create_app(config_class=Config):
 
     from admin.routes import admin
     from users.routes import users
-    from todos.routes import todos
+    from notes.routes import notes
     app.register_blueprint(admin)
     app.register_blueprint(users)
-    app.register_blueprint(todos)
+    app.register_blueprint(notes)
     return app      
 
     

@@ -70,61 +70,61 @@ def deleteUser(user_id):
         return jsonify({"message": "Couldn't delete user to DB"}), 400
 
 def getTodos():
-    todos = Note.query.all()
-    return jsonify(todos=[todo.serialize for todo in todos])
+    notes = Note.query.all()
+    return jsonify(notes=[note.serialize for note in notes])
 
-def postTodo(todo_description, completed, user_id):
+def postTodo(note_description, completed, user_id):
     user = User.query.get(user_id)
     if not user:
         return jsonify({'message': 'No user associated'}), 400
-    todo = Note(todo_description=todo_description, completed=completed, user_id=user_id)
-    db.session.add(todo)
+    note = Note(note_description=note_description, completed=completed, user_id=user_id)
+    db.session.add(note)
     try:
         db.session.commit()
-        return jsonify(todo=todo.serialize)
+        return jsonify(note=note.serialize)
     except:
         db.session.rollback()
-        return jsonify({"message": "Couldn't add todo to DB"}), 400
+        return jsonify({"message": "Couldn't add note to DB"}), 400
 
-def getTodo(todo_id):
-    todo = Note.query.get(todo_id)
-    if not todo:
+def getTodo(note_id):
+    note = Note.query.get(note_id)
+    if not note:
         return jsonify({"message": "Note doesn\'t exist"}), 404
-    return jsonify(todo=todo.serialize)
+    return jsonify(note=note.serialize)
 
-def updateTodo(todo_id, todo_description, completed, user_id):
+def updateTodo(note_id, note_description, completed, user_id):
     user = User.query.get(user_id)
-    todo = Note.query.get(todo_id)
+    note = Note.query.get(note_id)
     if not user:
         return jsonify({'message': 'No user associated'}), 400
-    if not todo:
-        return jsonify({'message': 'No todo associated'}), 400
-    if todo_description:
-        todo.todo_description = todo_description
+    if not note:
+        return jsonify({'message': 'No note associated'}), 400
+    if note_description:
+        note.note_description = note_description
     if completed != None:
-        todo.completed = completed
+        note.completed = completed
     if user_id:
-        todo.user_id = user_id
-    db.session.add(todo)
+        note.user_id = user_id
+    db.session.add(note)
     try:
         db.session.commit()
-        return jsonify(todo=todo.serialize)
+        return jsonify(note=note.serialize)
     except:
         db.session.rollback()
         return jsonify({"message": "Couldn't add user to DB"})
 
-def deleteTodo(todo_id):
-    todo = Note.query.get(todo_id)
-    if not todo:
+def deleteTodo(note_id):
+    note = Note.query.get(note_id)
+    if not note:
         return jsonify({"message": "Note doesn't exist"}), 404
-    db.session.delete(todo)
+    db.session.delete(note)
     try:
         db.session.commit()
-        return make_response(jsonify({"message": 'Removed todo with ID: {}'.format(todo_id)}))
+        return make_response(jsonify({"message": 'Removed note with ID: {}'.format(note_id)}))
     except:
         db.session.rollback()
-        return jsonify({"message": "Couldn't delete todo to DB"}), 400
+        return jsonify({"message": "Couldn't delete note to DB"}), 400
 
 def getTodosUser(user_id):
-    todos = Note.query.filter_by(user_id=user_id).all()
-    return jsonify(todos=[todo.serialize for todo in todos])
+    notes = Note.query.filter_by(user_id=user_id).all()
+    return jsonify(notes=[note.serialize for note in notes])

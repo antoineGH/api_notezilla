@@ -59,9 +59,9 @@ def adminUser(user_id):
     if request.method == 'DELETE':
         return deleteUser(user_id)
 
-@admin.route('/api/admin/todos', methods=['GET', 'POST'])
+@admin.route('/api/admin/notes', methods=['GET', 'POST'])
 @jwt_required
-def todos():
+def notes():
     if not isAdmin():
         return jsonify({'message': "Unauthorized Admin only"}), 403 
 
@@ -71,44 +71,44 @@ def todos():
         if not request.is_json:
             return jsonify({"message": "Missing JSON in request"}), 400
         content = request.get_json(force=True)
-        todo_description = content.get("todo_description", None)
+        note_description = content.get("note_description", None)
         completed = content.get("completed", None)
         user_id = content.get("user_id", None)
-        if not todo_description: 
-            return jsonify({"message": 'Missing todo_description in JSON'})
+        if not note_description: 
+            return jsonify({"message": 'Missing note_description in JSON'})
         if not completed: 
             return jsonify({"message": 'Missing completed in JSON'})
         if not user_id: 
             return jsonify({"message": 'Missing user_id in JSON'})
-        return postTodo(todo_description, completed, user_id)
+        return postTodo(note_description, completed, user_id)
 
-@admin.route('/api/admin/todo/<int:todo_id>', methods=['GET', 'PUT', 'DELETE']) 
+@admin.route('/api/admin/note/<int:note_id>', methods=['GET', 'PUT', 'DELETE']) 
 @jwt_required
-def todo(todo_id):
+def note(note_id):
     if not isAdmin():
         return jsonify({'message': "Unauthorized Admin only"}), 403 
 
-    if not todo_id:
-        return jsonify({"message": "Missing todo_id in request"}), 404
+    if not note_id:
+        return jsonify({"message": "Missing note_id in request"}), 404
 
     if request.method == 'GET':
-        return getTodo(todo_id)
+        return getTodo(note_id)
 
     if request.method == 'PUT':
         if not request.is_json:
             return jsonify({"message": "Missing JSON in request"}), 400
         content = request.get_json(force=True)
-        todo_description = content['todo_description'] if 'todo_description' in content.keys() else ''
+        note_description = content['note_description'] if 'note_description' in content.keys() else ''
         completed = content['completed'] if 'completed' in content.keys() else ''
         user_id = content['user_id'] if 'user_id' in content.keys() else ''
-        return updateTodo(todo_id, todo_description, completed, user_id)
+        return updateTodo(note_id, note_description, completed, user_id)
 
     if request.method == 'DELETE':
-        return deleteTodo(todo_id)
+        return deleteTodo(note_id)
 
-@admin.route('/api/admin/todo/user/<int:user_id>', methods=['GET'])
+@admin.route('/api/admin/note/user/<int:user_id>', methods=['GET'])
 @jwt_required
-def todosUser(user_id):
+def notesUser(user_id):
     if not isAdmin():
         return jsonify({'message': "Unauthorized Admin only"}), 403 
 

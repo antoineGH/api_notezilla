@@ -1,10 +1,10 @@
 from flask import request, Blueprint, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_claims
-from todos.utils import getUserTodos, postUserTodo, getUserTodo, updateUserTodo, deleteUserTodo
+from notes.utils import getUserTodos, postUserTodo, getUserTodo, updateUserTodo, deleteUserTodo
 
-todos = Blueprint('todos', __name__)
+notes = Blueprint('notes', __name__)
 
-@todos.route('/api/todos', methods=['GET', 'POST'])
+@notes.route('/api/notes', methods=['GET', 'POST'])
 @jwt_required
 def userTodos():
     claims = get_jwt_claims()
@@ -20,18 +20,18 @@ def userTodos():
         if not request.is_json:
             return jsonify({"message": "Missing JSON in request"}), 400
         content = request.get_json(force=True)
-        todo_description = content.get("todo_description", None)
+        note_description = content.get("note_description", None)
         completed = content.get("completed", None)
-        if not todo_description:
-            return jsonify({"message": "Missing todo_description"}), 400
-        return postUserTodo(todo_description, completed, user_id)
+        if not note_description:
+            return jsonify({"message": "Missing note_description"}), 400
+        return postUserTodo(note_description, completed, user_id)
 
-@todos.route('/api/todo/<int:todo_id>', methods=['GET', 'PUT', 'DELETE']) 
+@notes.route('/api/note/<int:note_id>', methods=['GET', 'PUT', 'DELETE']) 
 @jwt_required
-def userTodo(todo_id):
+def userTodo(note_id):
 
-    if not todo_id:
-        return jsonify({"message": "Missing todo_id in request"}), 404
+    if not note_id:
+        return jsonify({"message": "Missing note_id in request"}), 404
 
     claims = get_jwt_claims()
     user_id = claims.get('user_id')
@@ -40,15 +40,15 @@ def userTodo(todo_id):
         return jsonify({'message': 'Missing user_id in Token'}), 400
 
     if request.method == 'GET':
-        return getUserTodo(todo_id, user_id)
+        return getUserTodo(note_id, user_id)
 
     if request.method == 'PUT':
         if not request.is_json:
             return jsonify({"message": "Missing JSON in request"}), 400
         content = request.get_json(force=True)
-        todo_description = content['todo_description'] if 'todo_description' in content.keys() else ''
+        note_description = content['note_description'] if 'note_description' in content.keys() else ''
         completed = content['completed'] if 'completed' in content.keys() else False
-        return updateUserTodo(todo_id, todo_description, completed, user_id)
+        return updateUserTodo(note_id, note_description, completed, user_id)
 
     if request.method == 'DELETE':
-        return deleteUserTodo(todo_id, user_id)
+        return deleteUserTodo(note_id, user_id)
