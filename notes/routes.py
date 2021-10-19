@@ -20,11 +20,14 @@ def userNotes():
         if not request.is_json:
             return jsonify({"message": "Missing JSON in request"}), 400
         content = request.get_json(force=True)
+        note_title = content.get("note_title", None)
         note_description = content.get("note_description", None)
         completed = content.get("completed", None)
+        if not note_title:
+            return jsonify({"message": "Missing note_title"}), 400
         if not note_description:
             return jsonify({"message": "Missing note_description"}), 400
-        return postUserNote(note_description, completed, user_id)
+        return postUserNote(note_title, note_description, completed, user_id)
 
 @notes.route('/api/note/<int:note_id>', methods=['GET', 'PUT', 'DELETE']) 
 @jwt_required
@@ -46,9 +49,10 @@ def userNote(note_id):
         if not request.is_json:
             return jsonify({"message": "Missing JSON in request"}), 400
         content = request.get_json(force=True)
+        note_title = content['note_title'] if 'note_title' in content.keys() else ''
         note_description = content['note_description'] if 'note_description' in content.keys() else ''
         completed = content['completed'] if 'completed' in content.keys() else False
-        return updateUserNote(note_id, note_description, completed, user_id)
+        return updateUserNote(note_id, note_title, note_description, completed, user_id)
 
     if request.method == 'DELETE':
         return deleteUserNote(note_id, user_id)

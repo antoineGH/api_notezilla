@@ -73,11 +73,11 @@ def getNotes():
     notes = Note.query.all()
     return jsonify(notes=[note.serialize for note in notes])
 
-def postNote(note_description, completed, user_id):
+def postNote(note_title, note_description, completed, user_id):
     user = User.query.get(user_id)
     if not user:
         return jsonify({'message': 'No user associated'}), 400
-    note = Note(note_description=note_description, completed=completed, user_id=user_id)
+    note = Note(note_title=note_title, note_description=note_description, completed=completed, user_id=user_id)
     db.session.add(note)
     try:
         db.session.commit()
@@ -92,13 +92,15 @@ def getNote(note_id):
         return jsonify({"message": "Note doesn\'t exist"}), 404
     return jsonify(note=note.serialize)
 
-def updateNote(note_id, note_description, completed, user_id):
+def updateNote(note_id, note_title, note_description, completed, user_id):
     user = User.query.get(user_id)
     note = Note.query.get(note_id)
     if not user:
         return jsonify({'message': 'No user associated'}), 400
     if not note:
         return jsonify({'message': 'No note associated'}), 400
+    if note_title:
+        note.note_title = note_title
     if note_description:
         note.note_description = note_description
     if completed != None:
