@@ -23,19 +23,23 @@ class User(db.Model):
             'date_created': self.date_created
         }
 
-class Todo(db.Model):
-    todo_id = Column(Integer, primary_key=True)
-    todo_description = Column(String(200), nullable=False)
+class Note(db.Model):
+    note_id = Column(Integer, primary_key=True)
+    note_title = Column(String(100), nullable=False)
+    note_content = Column(String(1000), nullable=False)
     completed = Column(Boolean, nullable=False, default=False)
+    date_created = Column(DateTime, nullable=False, default=datetime.datetime.utcnow)
     user_id = Column(Integer, ForeignKey(User.user_id), nullable=False)
 
     def __repr__(self):
-        return "- TODO - todo_id: {}, todo_description: {}, completed: {}, user_id: {}".format(self.todo_id, self.todo_description, self.completed, self.user_id)
+        return "- TODO - note_id: {}, note_title: {}, note_content: {}, completed: {}, date_created: {date_created}, user_id: {}".format(self.note_id, self.note_title, self.note_content, self.completed, self.date_created, self.user_id)
 
     @property
     def serialize(self):
         return {
-            'todo_id': self.todo_id,
-            'todo_description': self.todo_description,
+            'note_id': self.note_id,
+            'note_title': self.note_title,
+            'note_content': self.note_content,
+            'date_created': self.date_created,
             'completed': self.completed,
         }

@@ -1,5 +1,5 @@
 from flask import jsonify, make_response
-from models import User, Todo
+from models import User, Note
 from __init__ import bcrypt, db
 from flask_jwt_extended import get_jwt_identity
 
@@ -70,14 +70,14 @@ def deleteUser(user_id):
         return jsonify({"message": "Couldn't delete user to DB"}), 400
 
 def getTodos():
-    todos = Todo.query.all()
+    todos = Note.query.all()
     return jsonify(todos=[todo.serialize for todo in todos])
 
 def postTodo(todo_description, completed, user_id):
     user = User.query.get(user_id)
     if not user:
         return jsonify({'message': 'No user associated'}), 400
-    todo = Todo(todo_description=todo_description, completed=completed, user_id=user_id)
+    todo = Note(todo_description=todo_description, completed=completed, user_id=user_id)
     db.session.add(todo)
     try:
         db.session.commit()
@@ -87,14 +87,14 @@ def postTodo(todo_description, completed, user_id):
         return jsonify({"message": "Couldn't add todo to DB"}), 400
 
 def getTodo(todo_id):
-    todo = Todo.query.get(todo_id)
+    todo = Note.query.get(todo_id)
     if not todo:
-        return jsonify({"message": "Todo doesn\'t exist"}), 404
+        return jsonify({"message": "Note doesn\'t exist"}), 404
     return jsonify(todo=todo.serialize)
 
 def updateTodo(todo_id, todo_description, completed, user_id):
     user = User.query.get(user_id)
-    todo = Todo.query.get(todo_id)
+    todo = Note.query.get(todo_id)
     if not user:
         return jsonify({'message': 'No user associated'}), 400
     if not todo:
@@ -114,9 +114,9 @@ def updateTodo(todo_id, todo_description, completed, user_id):
         return jsonify({"message": "Couldn't add user to DB"})
 
 def deleteTodo(todo_id):
-    todo = Todo.query.get(todo_id)
+    todo = Note.query.get(todo_id)
     if not todo:
-        return jsonify({"message": "Todo doesn't exist"}), 404
+        return jsonify({"message": "Note doesn't exist"}), 404
     db.session.delete(todo)
     try:
         db.session.commit()
@@ -126,5 +126,5 @@ def deleteTodo(todo_id):
         return jsonify({"message": "Couldn't delete todo to DB"}), 400
 
 def getTodosUser(user_id):
-    todos = Todo.query.filter_by(user_id=user_id).all()
+    todos = Note.query.filter_by(user_id=user_id).all()
     return jsonify(todos=[todo.serialize for todo in todos])

@@ -19,7 +19,7 @@ def create_app(config_class=Config):
     cors.init_app(app, resources={r"/api/*": {"origins": "*"}})
     db.init_app(app)
     with app.test_request_context():
-        from models import User, Todo
+        from models import User, Note
         db.create_all()
 
     from admin.routes import admin
