@@ -36,7 +36,7 @@ After running the server, consult Documentation at :
 
 Database schema:
 
-![DB Screenshot](https://templars.guru/app/github/note_api/Note%20DB.png)
+![DB Screenshot](https://templars.guru/app/github/notezilla_api/Notes%20DB.png)
 
 ## Technologies<a name="technologies"></a>
 
