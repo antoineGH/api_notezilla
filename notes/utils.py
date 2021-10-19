@@ -8,8 +8,8 @@ def getUserNotes(user_id):
         return jsonify({"message": "Notes not found"}), 404
     return jsonify(notes=[note.serialize for note in notes])
 
-def postUserNote(note_title, note_description, completed, user_id):
-    note = Note(note_title=note_title, note_description=note_description, completed=completed, user_id=user_id)
+def postUserNote(note_title, note_content, completed, user_id):
+    note = Note(note_title=note_title, note_content=note_content, completed=completed, user_id=user_id)
     db.session.add(note)
     try:
         db.session.commit()
@@ -29,7 +29,7 @@ def getUserNote(note_id, user_id):
         return jsonify({"message": "Unauthorized Access"}), 401
     return jsonify(note=note.serialize)
 
-def updateUserNote(note_id, note_title, note_description, completed, user_id):
+def updateUserNote(note_id, note_title, note_content, completed, user_id):
     note = Note.query.get(note_id)
     if not note: 
         return jsonify({"message": "Note not found"}), 404
@@ -37,8 +37,8 @@ def updateUserNote(note_id, note_title, note_description, completed, user_id):
         return jsonify({"message": "Unauthorized Access"}), 401
     if note_title:
         note.note_title = note_title
-    if note_description:
-        note.note_description = note_description
+    if note_content:
+        note.note_content = note_content
     if completed != None:
         note.completed = completed
     db.session.add(note)

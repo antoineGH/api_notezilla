@@ -72,18 +72,18 @@ def notes():
             return jsonify({"message": "Missing JSON in request"}), 400
         content = request.get_json(force=True)
         note_title = content.get("note_title", None)
-        note_description = content.get("note_description", None)
+        note_content = content.get("note_content", None)
         completed = content.get("completed", None)
         user_id = content.get("user_id", None)
         if not note_title: 
             return jsonify({"message": 'Missing note_title in JSON'})
-        if not note_description: 
-            return jsonify({"message": 'Missing note_description in JSON'})
+        if not note_content: 
+            return jsonify({"message": 'Missing note_content in JSON'})
         if not completed: 
             return jsonify({"message": 'Missing completed in JSON'})
         if not user_id: 
             return jsonify({"message": 'Missing user_id in JSON'})
-        return postNote(note_title, note_description, completed, user_id)
+        return postNote(note_title, note_content, completed, user_id)
 
 @admin.route('/api/admin/note/<int:note_id>', methods=['GET', 'PUT', 'DELETE']) 
 @jwt_required
@@ -102,10 +102,10 @@ def note(note_id):
             return jsonify({"message": "Missing JSON in request"}), 400
         content = request.get_json(force=True)
         note_title = content['note_title'] if 'note_title' in content.keys() else ''
-        note_description = content['note_description'] if 'note_description' in content.keys() else ''
+        note_content = content['note_content'] if 'note_content' in content.keys() else ''
         completed = content['completed'] if 'completed' in content.keys() else ''
         user_id = content['user_id'] if 'user_id' in content.keys() else ''
-        return updateNote(note_id, note_title, note_description, completed, user_id)
+        return updateNote(note_id, note_title, note_content, completed, user_id)
 
     if request.method == 'DELETE':
         return deleteNote(note_id)
