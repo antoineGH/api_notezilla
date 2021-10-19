@@ -8,7 +8,7 @@ def getUserNotes(user_id):
         return jsonify({"message": "Notes not found"}), 404
     return jsonify(notes=[note.serialize for note in notes])
 
-def postUserTodo(note_description, completed, user_id):
+def postUserNote(note_description, completed, user_id):
     note = Note(note_description=note_description, completed=completed, user_id=user_id)
     db.session.add(note)
     try:
@@ -18,7 +18,7 @@ def postUserTodo(note_description, completed, user_id):
         db.session.rollback()
         return jsonify({"message": "Couldn't add note to DB"}), 400
 
-def getUserTodo(note_id, user_id):
+def getUserNote(note_id, user_id):
     user = User.query.get(user_id)
     if not user: 
         return jsonify({"message": "User not found"}), 404
@@ -29,7 +29,7 @@ def getUserTodo(note_id, user_id):
         return jsonify({"message": "Unauthorized Access"}), 401
     return jsonify(note=note.serialize)
 
-def updateUserTodo(note_id, note_description, completed, user_id):
+def updateUserNote(note_id, note_description, completed, user_id):
     note = Note.query.get(note_id)
     if not note: 
         return jsonify({"message": "Note not found"}), 404
@@ -47,7 +47,7 @@ def updateUserTodo(note_id, note_description, completed, user_id):
         db.session.rollback()
         return jsonify({"message": "Couldn't add user to DB"})
 
-def deleteUserTodo(note_id, user_id):
+def deleteUserNote(note_id, user_id):
     note = Note.query.get(note_id)
     if not note: 
         return jsonify({"message": "Note not found"}), 404

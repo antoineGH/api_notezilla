@@ -73,7 +73,7 @@ def getNotes():
     notes = Note.query.all()
     return jsonify(notes=[note.serialize for note in notes])
 
-def postTodo(note_description, completed, user_id):
+def postNote(note_description, completed, user_id):
     user = User.query.get(user_id)
     if not user:
         return jsonify({'message': 'No user associated'}), 400
@@ -86,13 +86,13 @@ def postTodo(note_description, completed, user_id):
         db.session.rollback()
         return jsonify({"message": "Couldn't add note to DB"}), 400
 
-def getTodo(note_id):
+def getNote(note_id):
     note = Note.query.get(note_id)
     if not note:
         return jsonify({"message": "Note doesn\'t exist"}), 404
     return jsonify(note=note.serialize)
 
-def updateTodo(note_id, note_description, completed, user_id):
+def updateNote(note_id, note_description, completed, user_id):
     user = User.query.get(user_id)
     note = Note.query.get(note_id)
     if not user:
@@ -113,7 +113,7 @@ def updateTodo(note_id, note_description, completed, user_id):
         db.session.rollback()
         return jsonify({"message": "Couldn't add user to DB"})
 
-def deleteTodo(note_id):
+def deleteNote(note_id):
     note = Note.query.get(note_id)
     if not note:
         return jsonify({"message": "Note doesn't exist"}), 404

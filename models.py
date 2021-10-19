@@ -32,7 +32,7 @@ class Note(db.Model):
     user_id = Column(Integer, ForeignKey(User.user_id), nullable=False)
 
     def __repr__(self):
-        return "- TODO - note_id: {}, note_title: {}, note_content: {}, completed: {}, date_created: {date_created}, user_id: {}".format(self.note_id, self.note_title, self.note_content, self.completed, self.date_created, self.user_id)
+        return "- NOTE - note_id: {}, note_title: {}, note_content: {}, completed: {}, date_created: {date_created}, user_id: {}".format(self.note_id, self.note_title, self.note_content, self.completed, self.date_created, self.user_id)
 
     @property
     def serialize(self):

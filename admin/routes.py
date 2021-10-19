@@ -1,7 +1,7 @@
 from flask import request, Blueprint, jsonify, render_template
 from flask_jwt_extended import jwt_required
-from admin.utils import deleteTodo
-from admin.utils import isAdmin, getUsers, postUser, getUser, updateUser, deleteUser, getNotes, postTodo, getTodo, updateTodo, deleteTodo, getNotesUser
+from admin.utils import deleteNote
+from admin.utils import isAdmin, getUsers, postUser, getUser, updateUser, deleteUser, getNotes, postNote, getNote, updateNote, deleteNote, getNotesUser
 
 admin = Blueprint('admin', __name__)
 
@@ -80,7 +80,7 @@ def notes():
             return jsonify({"message": 'Missing completed in JSON'})
         if not user_id: 
             return jsonify({"message": 'Missing user_id in JSON'})
-        return postTodo(note_description, completed, user_id)
+        return postNote(note_description, completed, user_id)
 
 @admin.route('/api/admin/note/<int:note_id>', methods=['GET', 'PUT', 'DELETE']) 
 @jwt_required
@@ -92,7 +92,7 @@ def note(note_id):
         return jsonify({"message": "Missing note_id in request"}), 404
 
     if request.method == 'GET':
-        return getTodo(note_id)
+        return getNote(note_id)
 
     if request.method == 'PUT':
         if not request.is_json:
@@ -101,10 +101,10 @@ def note(note_id):
         note_description = content['note_description'] if 'note_description' in content.keys() else ''
         completed = content['completed'] if 'completed' in content.keys() else ''
         user_id = content['user_id'] if 'user_id' in content.keys() else ''
-        return updateTodo(note_id, note_description, completed, user_id)
+        return updateNote(note_id, note_description, completed, user_id)
 
     if request.method == 'DELETE':
-        return deleteTodo(note_id)
+        return deleteNote(note_id)
 
 @admin.route('/api/admin/note/user/<int:user_id>', methods=['GET'])
 @jwt_required
