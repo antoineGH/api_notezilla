@@ -2,10 +2,10 @@ from flask import jsonify, make_response
 from models import Note, User
 from __init__ import db
 
-def getUserTodos(user_id):
+def getUserNotes(user_id):
     notes = Note.query.filter_by(user_id=user_id).all()
     if not notes: 
-        return jsonify({"message": "Todos not found"}), 404
+        return jsonify({"message": "Notes not found"}), 404
     return jsonify(notes=[note.serialize for note in notes])
 
 def postUserTodo(note_description, completed, user_id):

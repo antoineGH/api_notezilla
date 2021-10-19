@@ -69,7 +69,7 @@ def deleteUser(user_id):
         db.session.rollback()
         return jsonify({"message": "Couldn't delete user to DB"}), 400
 
-def getTodos():
+def getNotes():
     notes = Note.query.all()
     return jsonify(notes=[note.serialize for note in notes])
 
@@ -125,6 +125,6 @@ def deleteTodo(note_id):
         db.session.rollback()
         return jsonify({"message": "Couldn't delete note to DB"}), 400
 
-def getTodosUser(user_id):
+def getNotesUser(user_id):
     notes = Note.query.filter_by(user_id=user_id).all()
     return jsonify(notes=[note.serialize for note in notes])

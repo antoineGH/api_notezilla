@@ -1,12 +1,12 @@
 from flask import request, Blueprint, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_claims
-from notes.utils import getUserTodos, postUserTodo, getUserTodo, updateUserTodo, deleteUserTodo
+from notes.utils import getUserNotes, postUserTodo, getUserTodo, updateUserTodo, deleteUserTodo
 
 notes = Blueprint('notes', __name__)
 
 @notes.route('/api/notes', methods=['GET', 'POST'])
 @jwt_required
-def userTodos():
+def userNotes():
     claims = get_jwt_claims()
     user_id = claims.get('user_id')
     
@@ -14,7 +14,7 @@ def userTodos():
         return jsonify({'message': 'Missing user_id in Token'}), 400
     
     if request.method == 'GET':
-        return getUserTodos(user_id)
+        return getUserNotes(user_id)
 
     if request.method == 'POST':
         if not request.is_json:

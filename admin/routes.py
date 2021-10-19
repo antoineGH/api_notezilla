@@ -1,7 +1,7 @@
 from flask import request, Blueprint, jsonify, render_template
 from flask_jwt_extended import jwt_required
 from admin.utils import deleteTodo
-from admin.utils import isAdmin, getUsers, postUser, getUser, updateUser, deleteUser, getTodos, postTodo, getTodo, updateTodo, deleteTodo, getTodosUser
+from admin.utils import isAdmin, getUsers, postUser, getUser, updateUser, deleteUser, getNotes, postTodo, getTodo, updateTodo, deleteTodo, getNotesUser
 
 admin = Blueprint('admin', __name__)
 
@@ -66,7 +66,7 @@ def notes():
         return jsonify({'message': "Unauthorized Admin only"}), 403 
 
     if request.method == 'GET':
-        return getTodos()
+        return getNotes()
     if request.method == 'POST':
         if not request.is_json:
             return jsonify({"message": "Missing JSON in request"}), 400
@@ -114,4 +114,4 @@ def notesUser(user_id):
 
     if not user_id:
         return jsonify({"message": "Missing user_id in request"}), 404
-    return getTodosUser(user_id)
+    return getNotesUser(user_id)
