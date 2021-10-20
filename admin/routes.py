@@ -1,5 +1,6 @@
 from flask import request, Blueprint, jsonify, render_template
 from flask_jwt_extended import jwt_required
+from sqlalchemy.sql.expression import null
 from admin.utils import deleteNote
 from admin.utils import isAdmin, getUsers, postUser, getUser, updateUser, deleteUser, getNotes, postNote, getNote, updateNote, deleteNote, getNotesUser
 
@@ -79,7 +80,7 @@ def notes():
             return jsonify({"message": 'Missing note_title in JSON'})
         if not note_content: 
             return jsonify({"message": 'Missing note_content in JSON'})
-        if not completed: 
+        if completed == null or completed == '': 
             return jsonify({"message": 'Missing completed in JSON'})
         if not user_id: 
             return jsonify({"message": 'Missing user_id in JSON'})
