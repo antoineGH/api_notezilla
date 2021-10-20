@@ -46,8 +46,8 @@ class Note(db.Model):
 
 class Scratch(db.Model):
     scratch_id = Column(Integer, primary_key=True)
-    scratch_title = Column(String(100), nullable=False)
-    scratch_content = Column(String(1000), nullable=False)
+    scratch_title = Column(String(100), nullable=False, default='')
+    scratch_content = Column(String(1000), nullable=False, default='')
     completed = Column(Boolean, nullable=False, default=False)
     date_created = Column(DateTime, nullable=False, default=datetime.datetime.utcnow)
     user_id = Column(Integer, ForeignKey(User.user_id), nullable=False)

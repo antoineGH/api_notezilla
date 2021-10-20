@@ -6,12 +6,11 @@ def getUserScratch(user_id):
     scratchs = Scratch.query.filter_by(user_id=user_id).all()
     if not scratchs: 
         return jsonify({"message": "Scratch not found"}), 404
-    return jsonify(scratchs=[scratch.serialize for scratch in scratchs])
+    return jsonify(scratch=[scratch.serialize for scratch in scratchs])
 
 def postUserScratch(scratch_title, scratch_content, completed, user_id):
     existing_scratch = Scratch.query.filter_by(user_id=user_id).first()
     if existing_scratch:
-        print("existing scratch PUT")
         return updateUserScratch(existing_scratch.scratch_id, scratch_title, scratch_content, completed, user_id)
     scratch = Scratch(scratch_title=scratch_title, scratch_content=scratch_content, completed=completed, user_id=user_id)
     db.session.add(scratch)
@@ -42,16 +41,10 @@ def updateUserScratch(scratch_id, scratch_title, scratch_content, completed, use
         db.session.rollback()
         return jsonify({"message": "Couldn't add user to DB"})
 
-def deleteUserScratch(scratch_id, user_id):
-    scratch = Scratch.query.get(scratch_id)
+def deleteUserScratch(user_id):
+    scratch = Scratch.query.filter_by(user_id=user_id).first()
     if not scratch: 
         return jsonify({"message": "Scratch not found"}), 404
     if scratch.user_id != user_id:
         return jsonify({"message": "Unauthorized Access"}), 401
-    db.session.delete(scratch)
-    try:
-        db.session.commit()
-        return jsonify(True)
-    except:
-        db.session.rollback()
-        return jsonify(False)
+    return updateUserScratch(scratch.scratch_id, 'lol', 'lol', False, scratch.user_id)

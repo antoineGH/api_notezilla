@@ -1,10 +1,10 @@
 from flask import request, Blueprint, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_claims
-from scratch.utils import deleteUserScratch, getUserScratch, postUserScratch, updateUserScratch, deleteUserScratch
+from scratch.utils import deleteUserScratch, getUserScratch, postUserScratch, deleteUserScratch
 
 scratch = Blueprint('scratch', __name__)
 
-@scratch.route('/api/scratch', methods=['GET', 'POST'])
+@scratch.route('/api/scratch', methods=['GET', 'POST', 'DELETE'])
 @jwt_required
 def userScratch():
     claims = get_jwt_claims()
@@ -29,17 +29,5 @@ def userScratch():
             return jsonify({"message": "Missing scratch_content"}), 400
         return postUserScratch(scratch_title, scratch_content, completed, user_id)
 
-@scratch.route('/api/scratch/<int:scratch_id>', methods=['PUT', 'DELETE']) 
-@jwt_required
-def userScratchID(scratch_id):
-    if not scratch_id:
-        return jsonify({"message": "Missing scratch_id in request"}), 404
-
-    claims = get_jwt_claims()
-    user_id = claims.get('user_id')
-    
-    if not user_id:
-        return jsonify({'message': 'Missing user_id in Token'}), 400
-
     if request.method == 'DELETE':
-        return deleteUserScratch(scratch_id, user_id)
+        return deleteUserScratch(user_id)
