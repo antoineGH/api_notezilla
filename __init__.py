@@ -19,15 +19,17 @@ def create_app(config_class=Config):
     cors.init_app(app, resources={r"/api/*": {"origins": "*"}})
     db.init_app(app)
     with app.test_request_context():
-        from models import User, Note
+        from models import User, Note, Scratch
         db.create_all()
 
     from admin.routes import admin
     from users.routes import users
     from notes.routes import notes
+    from scratch.routes import scratch
     app.register_blueprint(admin)
     app.register_blueprint(users)
     app.register_blueprint(notes)
+    app.register_blueprint(scratch)
     return app      
 
     

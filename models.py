@@ -43,3 +43,24 @@ class Note(db.Model):
             'date_created': self.date_created,
             'completed': self.completed,
         }
+
+class Scratch(db.Model):
+    scratch_id = Column(Integer, primary_key=True)
+    scratch_title = Column(String(100), nullable=False, default='')
+    scratch_content = Column(String(1000), nullable=False, default='')
+    completed = Column(Boolean, nullable=False, default=False)
+    date_created = Column(DateTime, nullable=False, default=datetime.datetime.utcnow)
+    user_id = Column(Integer, ForeignKey(User.user_id), nullable=False)
+
+    def __repr__(self):
+            return "- SCRATCH - scratch_id: {}, scratch_title: {}, scratch_content: {}, completed: {}, date_created: {date_created}, user_id: {}".format(self.scratch_id, self.scratch_title, self.scratch_content, self.completed, self.date_created, self.user_id)
+
+    @property
+    def serialize(self):
+        return {
+            'scratch_id': self.scratch_id,
+            'scratch_title': self.scratch_title,
+            'scratch_content': self.scratch_content,
+            'date_created': self.date_created,
+            'completed': self.completed,
+        }
