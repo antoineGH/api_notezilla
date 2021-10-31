@@ -23,10 +23,6 @@ def userScratch():
         scratch_title = content.get("scratch_title", None)
         scratch_content = content.get("scratch_content", None)
         completed = content.get("completed", None)
-        if not scratch_title:
-            return jsonify({"message": "Missing scratch_title"}), 400
-        if not scratch_content:
-            return jsonify({"message": "Missing scratch_content"}), 400
         return postUserScratch(scratch_title, scratch_content, completed, user_id)
 
     if request.method == 'DELETE':
