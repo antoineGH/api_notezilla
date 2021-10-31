@@ -49,7 +49,6 @@ def userNote(note_id):
         if not request.is_json:
             return jsonify({"message": "Missing JSON in request"}), 400
         content = request.get_json(force=True)
-        print(content)
         note_title = content['note_title'] if 'note_title' in content.keys() else ''
         note_content = content['note_content'] if 'note_content' in content.keys() else ''
         completed = content['completed'] if 'completed' in content.keys() else False

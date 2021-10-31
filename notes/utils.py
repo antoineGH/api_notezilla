@@ -30,11 +30,6 @@ def getUserNote(note_id, user_id):
     return jsonify(note=note.serialize)
 
 def updateUserNote(note_id, note_title, note_content, completed, user_id):
-    print(note_id)
-    print(note_title)
-    print(note_content)
-    print(completed)
-    print(user_id)
     note = Note.query.get(note_id)
     if not note: 
         return jsonify({"message": "Note not found"}), 404
