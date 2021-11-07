@@ -24,7 +24,7 @@ Notezilla API is a REST API built with Flask & SQLAlchemy to operate CRUD operat
 
 After running the server, consult Documentation at :
 
-> http://127.0.0.1:5000/
+> https://flask-notezilla.herokuapp.com/
 
 -   notes CRUD
 
