@@ -40,7 +40,10 @@ def updateUserNote(note_id, note_title, note_content, completed, user_id):
     if note_content:
         note.note_content = note_content
     if completed != None:
-        note.completed = completed
+        if completed == 'true':
+            note.completed = True
+        elif completed == 'false': 
+            note.completed = False
     db.session.add(note)
     try:
         db.session.commit()

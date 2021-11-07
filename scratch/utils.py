@@ -1,4 +1,5 @@
 from flask import jsonify
+from sqlalchemy.sql.elements import Null
 from models import User, Scratch
 from __init__ import db
 
@@ -27,9 +28,9 @@ def updateUserScratch(scratch_id, scratch_title, scratch_content, completed, use
         return jsonify({"message": "Scratch not found"}), 404
     if scratch.user_id != user_id:
         return jsonify({"message": "Unauthorized Access"}), 401
-    if scratch_title:
+    if scratch_title != None:
         scratch.scratch_title = scratch_title
-    if scratch_content:
+    if scratch_content != None:
         scratch.scratch_content = scratch_content
     if completed != None:
         scratch.completed = completed
@@ -47,4 +48,4 @@ def deleteUserScratch(user_id):
         return jsonify({"message": "Scratch not found"}), 404
     if scratch.user_id != user_id:
         return jsonify({"message": "Unauthorized Access"}), 401
-    return updateUserScratch(scratch.scratch_id, 'lol', 'lol', False, scratch.user_id)
+    return updateUserScratch(scratch.scratch_id, '', '', False, scratch.user_id)
