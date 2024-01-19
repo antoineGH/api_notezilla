@@ -11,7 +11,9 @@ bcrypt = Bcrypt()
 jwt = JWTManager()
 cors = CORS()
 
+
 def create_app(config_class=Config):
+   
     app = Flask(__name__)
     app.config.from_object(Config)
     bcrypt.init_app(app)
