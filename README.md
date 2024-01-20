@@ -2,11 +2,11 @@
 
 ## Table of contents
 
--   [General info](#general-info)
--   [Features](#features)
--   [API Endpoints](#api-endpoints)
--   [Technologies](#technologies)
--   [Setup](#setup)
+- [General info](#general-info)
+- [Features](#features)
+- [API Endpoints](#api-endpoints)
+- [Technologies](#technologies)
+- [Setup](#setup)
 
 ## General info<a name="general-info"></a>
 
@@ -14,25 +14,25 @@ Notezilla API is a REST API built with Flask & SQLAlchemy to operate CRUD operat
 
 ## Features<a name="features"></a>
 
--   Allow user to fetch notes
--   Allow user to fetch singular note
--   Allow user to post note
--   Allow user to delete note
--   Allow user to update note
+- Allow user to fetch notes
+- Allow user to fetch singular note
+- Allow user to post note
+- Allow user to delete note
+- Allow user to update note
 
 ## API Endpoints<a name="api-endpoints"></a>
 
 After running the server, consult Documentation at :
 
-> https://flask-notezilla.herokuapp.com/
+> https://antoineratat.xyz/api_notezilla/
 
--   notes CRUD
+- notes CRUD
 
-    -   Return JSON with all notes
-    -   Return JSON with singular note
-    -   Add new note
-    -   Update existing note
-    -   Delete existing note
+  - Return JSON with all notes
+  - Return JSON with singular note
+  - Add new note
+  - Update existing note
+  - Delete existing note
 
 Database schema:
 
@@ -61,7 +61,7 @@ $ code config.json
 
 {
 	"SECRET_KEY": "secret_key",
-	"DATABASE_URL": "sqlite:///dbname.db",
+	"DATABASE_URL": "postgresql:///db",
 	"JWT_SECRET_KEY": "jwt_key"
 }
 
