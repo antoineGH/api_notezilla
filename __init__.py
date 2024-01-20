@@ -9,7 +9,7 @@ from config import Config
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 jwt = JWTManager()
-cors = CORS()
+cors = CORS(resources={r"/api/*": {"origins": "https://antoine.ratat.xyz"}})
 
 
 def create_app(config_class=Config):

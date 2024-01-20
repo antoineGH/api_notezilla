@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 		<!-- Imports -->
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 		<link
 			rel="stylesheet"
 			href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -20,65 +21,43 @@
 	</head>
 	<body>
 		<!-- Navigation -->
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<a class="navbar-brand" href="#">Notezilla API - Documentation</a>
-			<button
-				class="navbar-toggler"
-				type="button"
-				data-toggle="collapse"
-				data-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent"
-				aria-expanded="false"
-				aria-label="Toggle navigation"
-			>
-				<span class="navbar-toggler-icon"></span>
-			</button>
+		<div class="container-fluid">
 
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item">
-						<a class="nav-link" href="#">GET</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">POST</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">PUT</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">DELETE</a>
-					</li>
-				</ul>
-			</div>
-		</nav>
-		<div class"container-fluid">
 			<div class="row mt-4 justify-content-left">
 				<div class="col mx-3">
-					<img src="{{  url_for('static', filename='db_structure.png')}}" alt="ERD Schema">
+					<h2>Documentation - Notezilla API</h2>
 				</div>
 			</div>
-		</div>
+			</div>
 
-		
+			   <!-- Table of Contents -->
+			   <div class="col mx-3 mt-4 ">
+				<h5>API Documentation Table of Contents</h5>
+					<ul>
+						<li><a href="#note-admin-section">Admin Notes CRUD</a></li>
+						<li><a href="#note-user-section">User Notes CRUD</a></li>
+						<li><a href="#user-admin-section">Admin User CRUD</a></li>
+						<li><a href="#user-user-section">User User CRUD</a></li>
+					</ul>
+				</div>
 
 		<!-- Main Content -->
 		<div class="container-fluid">
-
 			<!-- NOTE ADMIN -->
 			<div class="row mt-4 justify-content-left">
-				<div class="col mx-3">
+				<div class="col mx-3" id="note-admin-section">
 					<div class="card">
 						<div class="card-body">
-							<h5 class="card-title">Admin Notes CRUD</h5>
+							<h6 class="card-title">Admin Notes CRUD</h6>
 							<h6 class="card-subtitle mb-2 text-muted">Requires JWT Token auth as admin</h6>
-							<p><span style='font-weight: 675;'>GET /api/notes</span> Return JSON with all notes. <a href="https://flask-notezilla.herokuapp.com/api/admin/notes" class="card-link">https://flask-notezilla.herokuapp.com/api/admin/notes</a></p>
-							<p style="margin-bottom: 0;"><span style='font-weight: 675;'>POST /api/notes</span> Post new note from JSON <a href="https://flask-notezilla.herokuapp.com/api/admin/notes" class="card-link">https://flask-notezilla.herokuapp.com/api/admin/notes</a></p>
+							<p><span style='font-weight: 675;'>GET /api/notes</span> Return JSON with all notes. <br><a href="https://flask-notezilla.herokuapp.com/api/admin/notes" class="card-link">https://flask-notezilla.herokuapp.com/api/admin/notes</a></p>
+							<p style="margin-bottom: 0;"><span style='font-weight: 675;'>POST /api/notes</span> Post new note from JSON <br><a href="https://flask-notezilla.herokuapp.com/api/admin/notes" class="card-link">https://flask-notezilla.herokuapp.com/api/admin/notes</a></p>
 							<p style="font-style: italic;">{"note_title": "note_title", "note_content": "note_content", "completed": "completed", "user_id": "user_id"}</p> 
-							<p><span style='font-weight: 675;'>GET /api/note/id</span> Return JSON selected note. <a href="https://flask-notezilla.herokuapp.com/api/admin/note/1" class="card-link">https://flask-notezilla.herokuapp.com/api/admin/note/1</a></p>
-							<p style="margin-bottom: 0;"><span style='font-weight: 675;'>PUT /api/note/id</span> Update selected note from JSON <a href="https://flask-notezilla.herokuapp.com/api/admin/note/1" class="card-link">https://flask-notezilla.herokuapp.com/api/admin/note/1</a></p>
+							<p><span style='font-weight: 675;'>GET /api/note/id</span> Return JSON selected note. <br><a href="https://flask-notezilla.herokuapp.com/api/admin/note/1" class="card-link">https://flask-notezilla.herokuapp.com/api/admin/note/1</a></p>
+							<p style="margin-bottom: 0;"><span style='font-weight: 675;'>PUT /api/note/id</span> Update selected note from JSON <br><a href="https://flask-notezilla.herokuapp.com/api/admin/note/1" class="card-link">https://flask-notezilla.herokuapp.com/api/admin/note/1</a></p>
 							<p style="font-style: italic;">{"note_title": "note_title", "note_content": "note_content", "completed": "completed", "user_id": "user_id"}</p>
-							<p><span style='font-weight: 675;'>DELETE /api/note/id</span> Delete selected note. <a href="https://flask-notezilla.herokuapp.com/api/admin/note/1" class="card-link">https://flask-notezilla.herokuapp.com/api/admin/note/1</a></p>
-							<p><span style='font-weight: 675;'>GET /api/note/user/user_id</span> Return JSON with all notes for user. <a href="https://flask-notezilla.herokuapp.com/api/admin/note/user/1" class="card-link">https://flask-notezilla.herokuapp.com/api/admin/note/user/1</a></p>
+							<p><span style='font-weight: 675;'>DELETE /api/note/id</span> Delete selected note. <br><a href="https://flask-notezilla.herokuapp.com/api/admin/note/1" class="card-link">https://flask-notezilla.herokuapp.com/api/admin/note/1</a></p>
+							<p><span style='font-weight: 675;'>GET /api/note/user/user_id</span> Return JSON with all notes for user. <br><a href="https://flask-notezilla.herokuapp.com/api/admin/note/user/1" class="card-link">https://flask-notezilla.herokuapp.com/api/admin/note/user/1</a></p>
 						</div>
 					</div>
 				</div>
@@ -86,38 +65,37 @@
 
 			<!-- NOTE USER -->
 			<div class="row mt-4 justify-content-left">
-				<div class="col mx-3">
+				<div class="col mx-3" id="note-user-section">
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title">User Notes CRUD</h5>
 							<h6 class="card-subtitle mb-2 text-muted">Requires JWT Token auth as user</h6>
-							<p><span style='font-weight: 675;'>GET /api/notes</span> Return JSON with all notes for user. <a href="https://flask-notezilla.herokuapp.com/api/notes" class="card-link">https://flask-notezilla.herokuapp.com/api/notes</a></p>
-							<p style="margin-bottom: 0;"><span style='font-weight: 675;'>POST /api/notes</span> Post new note from JSON for user<a href="https://flask-notezilla.herokuapp.com/api/notes" class="card-link">https://flask-notezilla.herokuapp.com/api/notes</a></p>
+							<p><span style='font-weight: 675;'>GET /api/notes</span> Return JSON with all notes for user. <br><a href="https://flask-notezilla.herokuapp.com/api/notes" class="card-link">https://flask-notezilla.herokuapp.com/api/notes</a></p>
+							<p style="margin-bottom: 0;"><span style='font-weight: 675;'>POST /api/notes</span> Post new note from JSON for user<br><a href="https://flask-notezilla.herokuapp.com/api/notes" class="card-link">https://flask-notezilla.herokuapp.com/api/notes</a></p>
 							<p style="font-style: italic;">{"note_title": "note_title", "note_content": "note_content", "completed": "completed"}</p> 
-							<p><span style='font-weight: 675;'>GET /api/note/id</span> Return JSON selected note for user. <a href="https://flask-notezilla.herokuapp.com/api/note/1" class="card-link">https://flask-notezilla.herokuapp.com/api/note/1</a></p>
-							<p style="margin-bottom: 0;"><span style='font-weight: 675;'>PUT /api/note/id</span> Update selected note from JSON <a href="https://flask-notezilla.herokuapp.com/api/note/6" class="card-link">https://flask-notezilla.herokuapp.com/api/note/6</a></p>
+							<p><span style='font-weight: 675;'>GET /api/note/id</span> Return JSON selected note for user. <br><a href="https://flask-notezilla.herokuapp.com/api/note/1" class="card-link">https://flask-notezilla.herokuapp.com/api/note/1</a></p>
+							<p style="margin-bottom: 0;"><span style='font-weight: 675;'>PUT /api/note/id</span> Update selected note from JSON <br><a href="https://flask-notezilla.herokuapp.com/api/note/6" class="card-link">https://flask-notezilla.herokuapp.com/api/note/6</a></p>
 							<p style="font-style: italic;">{"note_title": "note_title", "note_content": "note_content", "completed": "completed"}</p>
-							<p><span style='font-weight: 675;'>DELETE /api/note/id</span> Delete selected note for user. <a href="https://flask-notezilla.herokuapp.com/api/note/6" class="card-link">https://flask-notezilla.herokuapp.com/api/note/6</a></p>
+							<p><span style='font-weight: 675;'>DELETE /api/note/id</span> Delete selected note for user. <br><a href="https://flask-notezilla.herokuapp.com/api/note/6" class="card-link">https://flask-notezilla.herokuapp.com/api/note/6</a></p>
 						</div>								
 					</div>
 				</div>
 			</div>
 
-
 			<!-- USER ADMIN -->
 			<div class="row mt-4 justify-content-left">
-				<div class="col mx-3">
+				<div class="col mx-3" id="user-admin-section">
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title">Admin User CRUD</h5>
 							<h6 class="card-subtitle mb-2 text-muted">Requires JWT Token auth as admin</h6>
-							<p><span style='font-weight: 675;'>GET /api/admin/users</span> Return JSON with all users. <a href="https://flask-notezilla.herokuapp.com/api/admin/users" class="card-link">https://flask-notezilla.herokuapp.com/api/admin/users</a></p>
-							<p style="margin-bottom: 0;"><span style='font-weight: 675;'>POST /api/admin/users</span> Post new user from JSON <a href="https://flask-notezilla.herokuapp.com/api/admin/users" class="card-link">https://flask-notezilla.herokuapp.com/api/admin/users</a></p>
+							<p><span style='font-weight: 675;'>GET /api/admin/users</span> Return JSON with all users. <br><a href="https://flask-notezilla.herokuapp.com/api/admin/users" class="card-link">https://flask-notezilla.herokuapp.com/api/admin/users</a></p>
+							<p style="margin-bottom: 0;"><span style='font-weight: 675;'>POST /api/admin/users</span> Post new user from JSON <br><a href="https://flask-notezilla.herokuapp.com/api/admin/users" class="card-link">https://flask-notezilla.herokuapp.com/api/admin/users</a></p>
 							<p style="font-style: italic;">{"email": "email", "password": "password", "first_name": "first_name", "last_name": "last_name"}</p> 
-							<p><span style='font-weight: 675;'>GET /api/admin/user/id</span> Return JSON selected user. <a href="https://flask-notezilla.herokuapp.com/api/admin/user/id" class="card-link">https://flask-notezilla.herokuapp.com/api/admin/user/id</a></p>
-							<p style="margin-bottom: 0;"><span style='font-weight: 675;'>PUT /api/admin/user/id</span> Update selected user from JSON <a href="https://flask-notezilla.herokuapp.com/api/admin/user/id" class="card-link">https://flask-notezilla.herokuapp.com/api/admin/user/id</a></p>
+							<p><span style='font-weight: 675;'>GET /api/admin/user/id</span> Return JSON selected user. <br><a href="https://flask-notezilla.herokuapp.com/api/admin/user/id" class="card-link">https://flask-notezilla.herokuapp.com/api/admin/user/id</a></p>
+							<p style="margin-bottom: 0;"><span style='font-weight: 675;'>PUT /api/admin/user/id</span> Update selected user from JSON <br><a href="https://flask-notezilla.herokuapp.com/api/admin/user/id" class="card-link">https://flask-notezilla.herokuapp.com/api/admin/user/id</a></p>
 							<p style="font-style: italic;">{"password": "password", "first_name": "first_name", "last_name": "last_name"}</p>
-							<p><span style='font-weight: 675;'>DELETE /api/admin/user/id</span> Delete selected user. <a href="https://flask-notezilla.herokuapp.com/api/admin/user/id" class="card-link">https://flask-notezilla.herokuapp.com/api/admin/user/id</a></p>
+							<p><span style='font-weight: 675;'>DELETE /api/admin/user/id</span> Delete selected user. <br><a href="https://flask-notezilla.herokuapp.com/api/admin/user/id" class="card-link">https://flask-notezilla.herokuapp.com/api/admin/user/id</a></p>
 						</div>
 					</div>
 				</div>
@@ -125,18 +103,18 @@
 
 			<!-- USER USER -->
 			<div class="row mt-4 justify-content-left">
-				<div class="col mx-3">
+				<div class="col mx-3" id="user-user-section">
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title">User User CRUD</h5>
 							<h6 class="card-subtitle mb-2 text-muted">Requires JWT Token auth as user</h6>
-							<p><span style='font-weight: 675;'>GET /api/user</span> Return JSON with user information. <a href="https://flask-notezilla.herokuapp.com/api/user" class="card-link">https://flask-notezilla.herokuapp.com/api/user</a></p>
-							<p style="margin-bottom: 0;"><span style='font-weight: 675;'>PUT /api/user</span> Update connected user from JSON <a href="https://flask-notezilla.herokuapp.com/api/user" class="card-link">https://flask-notezilla.herokuapp.com/api/user</a></p>
+							<p><span style='font-weight: 675;'>GET /api/user</span> Return JSON with user information. <br><a href="https://flask-notezilla.herokuapp.com/api/user" class="card-link">https://flask-notezilla.herokuapp.com/api/user</a></p>
+							<p style="margin-bottom: 0;"><span style='font-weight: 675;'>PUT /api/user</span> Update connected user from JSON <br><a href="https://flask-notezilla.herokuapp.com/api/user" class="card-link">https://flask-notezilla.herokuapp.com/api/user</a></p>
 							<p style="font-style: italic;">{"password": "password", "first_name": "first_name", "last_name": "last_name"}</p>
-							<p><span style='font-weight: 675;'>DELETE api/user</span> Delete connected user. <a href="https://flask-notezilla.herokuapp.com/api/user" class="card-link">https://flask-notezilla.herokuapp.com/api/user</a></p>
-							<p style="margin-bottom: 0;"><span style='font-weight: 675;'>POST /api/login</span> Login user and return JWT <a href="https://flask-notezilla.herokuapp.com/api/login" class="card-link">https://flask-notezilla.herokuapp.com/api/login</a></p>
+							<p><span style='font-weight: 675;'>DELETE api/user</span> Delete connected user. <br><a href="https://flask-notezilla.herokuapp.com/api/user" class="card-link">https://flask-notezilla.herokuapp.com/api/user</a></p>
+							<p style="margin-bottom: 0;"><span style='font-weight: 675;'>POST /api/login</span> Login user and return JWT <br><a href="https://flask-notezilla.herokuapp.com/api/login" class="card-link">https://flask-notezilla.herokuapp.com/api/login</a></p>
 							<p style="font-style: italic;">{"email": "email", "password": "password"}</p> 
-							<p style="margin-bottom: 0;"><span style='font-weight: 675;'>POST /api/register</span> Post new user and userdetail from JSON <a href="https://flask-notezilla.herokuapp.com/api/register" class="card-link">https://flask-notezilla.herokuapp.com/api/register</a></p>
+							<p style="margin-bottom: 0;"><span style='font-weight: 675;'>POST /api/register</span> Post new user and userdetail from JSON <br><a href="https://flask-notezilla.herokuapp.com/api/register" class="card-link">https://flask-notezilla.herokuapp.com/api/register</a></p>
 							<p style="font-style: italic;">{"email": "email", "password": "password", "first_name": "first_name", "last_name": "last_name"}</p> 
 						</div>
 					</div>
