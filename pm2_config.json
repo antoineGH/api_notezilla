@@ -1,0 +1,18 @@
+{
+  "apps": [
+    {
+      "name": "notezilla",
+      "cwd": "/var/www/api_notezilla",
+      "script": "gunicorn --workers=3 -b unix:/var/www/api_notezilla/mysock1.sock wsgi:app",
+      "watch": false,
+      "max_memory_restart": "256M",
+      "output": "/var/www/api_notezilla/logs/notezilla-out.log",
+      "error": "/var/www/api_notezilla/logs/notezilla-error.log",
+      "kill_timeout": 5000,
+      "restart_delay": 5000,
+      "env": {
+        "PATH": "/var/www/api_notezilla/venv/bin"
+      }
+    }
+  ]
+}
